@@ -10,6 +10,10 @@ Some filters are also implemented for [as the name suggest] filtering out data b
 
 ```
 
+## Deployment Status
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3b366e06-fb5b-4792-b74f-c6d663e9cbd1/deploy-status)](https://app.netlify.com/sites/transacttrackingsys-client/deploys)
+
 ## Stack
 
 ![ENV](https://img.shields.io/badge/.ENV-ECD53F?style=for-the-badge&logo=.env&logoColor=black)
