@@ -1,0 +1,8 @@
+CREATE TABLE transactions(
+ID VARCHAR(5) PRIMARY KEY,
+receiver VARCHAR(255) NOT NULL,
+sender VARCHAR(255) NOT NULL,
+confirmed BOOLEAN NOT NULL DEFAULT 0,
+amount INT NOT NULL,
+timedstamp BIGINT NOT NULL
+);

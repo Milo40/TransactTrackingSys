@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  servapp:
+    build:
+      context: .
+      dockerfile: /servApp/Dockerfile
+    container_name: transactTrackingSys.Server
+    restart: unless-stopped
+    env_file: servApp/.env
+    depends_on:
+      - mariadb
+    ports:
+      - "7000:7000"
+    volumes:
+      - .:/usr/transactTrackingSys/servApp/
+      - node_modules:/usr/transactTrackingSys/servApp/node_modules
+    networks:
+      - transactTrackingSys-network
+    command: bash -c /usr/transactTrackingSys/serverApp/wait-for.sh HOST:DPORT -- node /usr/transactTrackingSys/servApp/dist/index.js
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: /scheduler/Dockerfile
+    container_name: transactTrackingSys.Scheduler
+    restart: unless-stopped
+    env_file: scheduler/.env
+    depends_on:
+      - mariadb
+    volumes:
+      - .:/usr/transactTrackingSys/scheduler/
+      - node_modules:/usr/transactTrackingSys/scheduler/node_modules
+    networks:
+      - transactTrackingSys-network
+    command: node /usr/transactTrackingSys/scheduler/dist/index.js
+
+  clientapp:
+    build:
+      context: .
+      dockerfile: /clientapp/Dockerfile
+    container_name: transactTrackingSys.Client
+    restart: unless-stopped
+    env_file:
+      - clientapp/.env
+    depends_on:
+      - mariadb
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/usr/transactTrackingSys/clientApp/
+      - node_modules:/usr/transactTrackingSys/clientApp/node_modules
+    networks:
+      - transactTrackingSys-network
+    command: serve -s -p 4000 /usr/transactTrackingSys/clientApp/build/
+
+  mariadb:
+    image: mariadb
+    environment:
+      - MARIADB_USER=M1L040
+      - MARIADB_PASSWORD=P455w0rd
+      - MARIADB_DB=transactTrack
+    ports:
+      - "3306:3306"
+    volumes:
+      - transactTrackingSys-volume:/var/lib/mariadb/data
+
+volumes:
+  transactTrackingSys-volume:
+  node_modules:
+
+networks:
+  transactTrackingSys-network: {}
