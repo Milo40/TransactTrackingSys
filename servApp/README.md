@@ -4,9 +4,14 @@
 
 ```
 
-The "Server" is the core of the app stack, it actually holds most of our logic and serve data through REST endpoints and SOCKET rooms.
+The "Server" is the core of the app stack.
+It actually holds most of our logic and serve data through REST endpoints and SOCKET rooms.
 
 ```
+
+## Deployment Status
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9e9139f4-d1c5-4d09-a326-dee41924c811/deploy-status)](https://app.netlify.com/sites/transacttrackingsys/deploys)
 
 ## Stack
 
